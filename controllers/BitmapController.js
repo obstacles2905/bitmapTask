@@ -28,7 +28,7 @@ class BitmapController {
 
           if (!Number(answer)) {
             console.error("Incorrect amount. The value must be a number");
-            await amount();
+            return await amount();
           }
 
           return answer;
@@ -42,7 +42,7 @@ class BitmapController {
 
           if (!Number(answer)) {
             console.error("Incorrect width. The value must be a number");
-            await width();
+            return await width();
           }
 
           return answer;
@@ -56,7 +56,7 @@ class BitmapController {
 
           if (!Number(answer)) {
             console.error("Incorrect height. The value must be a number");
-            await height();
+            return await height();
           }
 
           return answer;
@@ -71,23 +71,20 @@ class BitmapController {
 
           if (!this._isValidData(answer)) {
             console.error("Incorrect answer. The value must be either 0 or 1");
-            await generationWay();
+            return await generationWay();
           }
 
           return answer;
         };
 
         return await generationWay();
-      },
-      end: () => {
-        rl.close();
       }
     };
 
     steps.start();
-    const amount = await steps.getAmount();
-    const width = await steps.getWidth();
-    const height = await steps.getHeight();
+    let amount = await steps.getAmount();
+    let width = await steps.getWidth();
+    let height = await steps.getHeight();
     const generationWay = Number(await steps.getGenerationWay(amount, width, height));
 
     generationWay === 0
